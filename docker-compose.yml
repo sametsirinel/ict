@@ -37,7 +37,7 @@ services:
         ports:
             - "${DB_PORT:-5435}:5432"
         volumes:
-            - ictdb:/var/lib/postgresql/data
+            - .:/var/lib/postgresql/data
             - ./init.sql:/docker-entrypoint-initdb.d/init.sql
         networks:
             - sail

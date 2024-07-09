@@ -24,10 +24,10 @@ class Api
                     'customer',
                     'status',
                 ])
-                ->where('customer_id', $request->get('customer_id')
+                ->where('customer_id', $request->get('customer_id') )
                 ->orderBy('id', 'DESC')
                 ->get()
-            ) );
+             );
 
             return response()->json([
                 'orders' => $data->resolve(),
