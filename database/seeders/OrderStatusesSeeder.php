@@ -13,6 +13,9 @@ class OrderStatusesSeeder extends Seeder
      */
     public function run(): void
     {
-        OrderStatuses::insert([ 'status' => 'Yeni', ],['status' => 'Tamamlandı']);
+        OrderStatuses::insert([
+            [ 'status' => 'Yeni', ],
+            ['status' => 'Tamamlandı']
+        ]);
     }
 }

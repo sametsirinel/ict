@@ -14,17 +14,15 @@ class OrderListResource extends JsonResource
      */
     public function toArray($request)
     {
-        // FIXME
-        /* İstenilen dönüş değeri;
-            Siparişe ait bilgiler, durum bilgisi ile birlikte order altında,
-            Müşteri isim/soyisim customer altında
-            Siparişteki ürünlerin isimleri ve ID'leri products altında. Bir ürün siparişten sonra ürün tablosunda pasife alınmış olsa dahi bu endpointte listelenmelidir
-         */
-
         return [
-            'order' => [],
-            'customer' => [],
-            'products' => []
+            'order' => [    
+                "order_no" => $this->order_no,
+                "order_date" => $this->order_date,
+                "status_id" => $this->status->status,
+                "shipment_address" => $this->shipment_address,
+            ],
+            'customer' => (new CustomerResource($this->customer)),
+            'products' => OrderProductResource::collection($this->products),
         ];
     }
 }

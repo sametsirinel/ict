@@ -32,11 +32,12 @@ services:
         environment:
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: '123456'
-            POSTGRES_DB: mydatabase
+            POSTGRES_DB: postgres
             PGDATA: /var/lib/postgresql/data/ictdb
         ports:
             - "${DB_PORT:-5435}:5432"
         volumes:
+            # Local dbden volume taşındı,
             - .:/var/lib/postgresql/data
             - ./init.sql:/docker-entrypoint-initdb.d/init.sql
         networks:
@@ -45,11 +46,9 @@ services:
             test: ["CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}"]
             retries: 3
             timeout: 5s
-
 networks:
     sail:
         driver: bridge
-
 volumes:
     ictdb:
         driver: local

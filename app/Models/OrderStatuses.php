@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 
 class OrderStatuses extends Model
@@ -40,5 +43,10 @@ class OrderStatuses extends Model
         'id',
         'status',
     ];
+
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Orders::class,"status_id");
+    }
 
 }

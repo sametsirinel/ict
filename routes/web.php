@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -10,13 +11,20 @@ Route::get('/', function () {
 Route::group([
     'prefix' => 'v1',
 ], function () {
-    Route::get('orders', [\App\Http\Controllers\Api::class, 'orders'])->name('get-orders');
+    Route::get('orders', [Api::class, 'orders'])->name('get-orders');
+    Route::get('orders/StatusStats', [Api::class, 'getStatusStats'])->name('destroy-product');
 
     // TODO 4 fonksiyon implement edilecek. Gerekli yerlerde Request/Resource class'ları üstteki endpointteki şekliyle kullanılmalıdır.
 
-    Route::get('product/{productId}', [\App\Http\Controllers\Api::class, 'get'])->name('get-product');
-    Route::put('product/{productId}', [\App\Http\Controllers\ProductController::class, 'update'])->name('update-product');
-    Route::post('product', [\App\Http\Controllers\ProductController::class, 'store'])->name('create-product');
-    Route::delete('product/{productId}', [\App\Http\Controllers\ProductController::class, 'destroy'])->name('destroy-product');
+    // Eğer Methot get olmayacaksa kısa yoldan erişim için resource kullanılabilir. 
+    // Bununla birlikte modul isimleri standart olarak coğul yazılması önerilir.
+    // Eğer Model binding yapılacaksa direk idden bağımsız isimlendirme yapmak daha doğru olacaktır. 
+    // Model isimleri de laravel standartlarına göre tekil olması önerilir.
+    // Extradan Api Class get içerisinde yazılması düzeltmedir diye düşünerek ProductController içerisinde çözümleyeceğim.
+    // Route::resource("products")
+    Route::get('product/{product}', [ProductController::class, 'get'])->name('get-product');
+    Route::post('product', [ProductController::class, 'store'])->name('create-product');
+    Route::put('product/{product}', [ProductController::class, 'update'])->name('update-product');
+    Route::delete('product/{product}', [ProductController::class, 'destroy'])->name('destroy-product');
 
 });
