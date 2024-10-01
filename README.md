@@ -30,3 +30,11 @@ Altta belirtilen SQL'ler app/Libraries altında bir class içerisinde her biri a
 
  - Her bir sipariş durumu için kaç adet ürün kullanıldığını getiren SQL. 
  - Şuanda stokta olmayan, en çok kullanılan (son 1 yıllık siparişler arasında) 5 ürünü (son 1 ay içerisinde de sipariş edilmiş olan) getiren SQL.  
+
+ ## Developer Notları 
+ - Api servisleri yazarken genelde Api Resourcelarını kullanmayı tercih ederim ama proje akışını kod akışını bozmamak adına var olan üzerinden devam ettim.
+ - Exception yönetimini tamamen controllerlardan ayırmayı tercih ederim benzer yapıda olmasını istediğinizden ötürü (routes/api.php içerisinde bulunan ürün ile ilişkili 4 endpoint ProductController.php içerisinde, orders endpoint'i ile benzer yapıda olacak şekilde implement edilmelidir. Burada dikkat edilmesi gereken konular;) a istinaden yazdığının yapının devamı olacak şekilde kodlamaya devam ettim. 
+ - Kodlarda tekrarları önlemek adına bir kaç alanı fonksiyonelleştirdim. Veya alt classlarda methodlar oluşturdum. 
+ - Seederinizdeki insertde bir hata vardı bu sebeple veri oluşumunda tek OrderStatus Oluşuyordu belki başkaları için güncellemek istersiniz.
+ - Okuduğunuz için Teşekkürler İyi Çalışmalar 
+ 

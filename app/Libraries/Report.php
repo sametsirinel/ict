@@ -22,7 +22,7 @@ class Report
     }
 
 
-    public function getMostOrderedProductsThatIsNotInStock()
+    public function getMostOrderedProductAndNotInStockOfYear()
     {
         $query = DB::table("order_products")
         ->selectRaw("count(products.id) as product_count ,order_products.product_id as product_id")

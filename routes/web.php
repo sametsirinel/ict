@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ReportsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -12,7 +13,11 @@ Route::group([
     'prefix' => 'v1',
 ], function () {
     Route::get('orders', [Api::class, 'orders'])->name('get-orders');
-    Route::get('orders/StatusStats', [Api::class, 'getStatusStats'])->name('destroy-product');
+
+    Route::prefix('reports')->group(function () {
+        Route::get('/getProductCountFromOrderStatus', [ReportsController::class, 'getProductCountFromOrderStatus']);
+        Route::get('/getMostOrderedProductAndNotInStockOfYear', [ReportsController::class, 'getMostOrderedProductAndNotInStockOfYear']);
+    });
 
     // TODO 4 fonksiyon implement edilecek. Gerekli yerlerde Request/Resource class'ları üstteki endpointteki şekliyle kullanılmalıdır.
 
@@ -22,9 +27,11 @@ Route::group([
     // Model isimleri de laravel standartlarına göre tekil olması önerilir.
     // Extradan Api Class get içerisinde yazılması düzeltmedir diye düşünerek ProductController içerisinde çözümleyeceğim.
     // Route::resource("products")
-    Route::get('product/{product}', [ProductController::class, 'get'])->name('get-product');
-    Route::post('product', [ProductController::class, 'store'])->name('create-product');
-    Route::put('product/{product}', [ProductController::class, 'update'])->name('update-product');
-    Route::delete('product/{product}', [ProductController::class, 'destroy'])->name('destroy-product');
-
+    
+    Route::prefix('product')->group(function () {
+        Route::get('/{product}', [ProductController::class, 'get'])->name('get-product');
+        Route::post('/', [ProductController::class, 'store'])->name('create-product');
+        Route::put('/{product}', [ProductController::class, 'update'])->name('update-product');
+        Route::delete('/{product}', [ProductController::class, 'destroy'])->name('destroy-product');
+    });
 });

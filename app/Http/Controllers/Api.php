@@ -50,11 +50,4 @@ class Api extends Controller
             return $this->error();
         }
     }
-
-    public function getStatusStats(){
-        $report = new Report();
-        dd(
-            $report->getMostOrderedProductsThatIsNotInStock(),
-        );
-    }
 }
